@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ewamii | Admin</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            gap: 50px;
+            margin: 50% auto;
+            background-color: aquamarine;
+        }
+        .signUp{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        input{
+            width: 200px;
+            height: 30px;
+            border-radius: 30px;
+            padding: 6px;
+            border: 2px solid aquamarine;
+            outline: 2px solid white;
+        }
+        button{
+            width: 200px;
+            height: 30px;
+            border-radius: 30px;
+            background-color: green;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="signUp">
+        <input type="text" id="fullname" placeholder="Enter Your Full Name">
+        <input type="email" id="userEmail" placeholder="Enter Your Email">
+        <input type="password" id="userPassword" placeholder="Enter Your Valid Password">
+        <button id="signUpBtn">Sign Up</button>
+    </div>
+
+
+    <div class="signUp">
+        <input type="email" id="signEmail" placeholder="Enter Your Email">
+        <input type="password" id="signPassword" placeholder="Enter Your Valid Password">
+        <button id="signInBtn">Sign In</button>
+    </div>
+
+
+    <script type="module">
+
+        import { createClient } from 'https://esm.sh/@supabase/supabase-js';
+
+        const supabaseUrl = 'https://lqyuluyuwrqwzdwdinfb.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxxeXVsdXl1d3Jxd3pkd2RpbmZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzMyMDczMzAsImV4cCI6MjA0ODc4MzMzMH0.6MIOTquPx74VeZfFDVb8S3Lq1Oqt_QwsfNGWG3-lqDA';
+
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+
+
+        let fullnameIn = document.getElementById('fullname')
+        let userEmail = document.getElementById('userEmail')
+        let userPassword = document.getElementById('userPassword')
+        let signUpBtn = document.getElementById('signUpBtn')
+        let signEmail = document.getElementById('signEmail')
+        let signPassword = document.getElementById('signPassword')
+        let signInBtn = document.getElementById('signInBtn')
+
+        // SIGNUP ADMINS
+        const signUp = async () => {
+            let email = userEmail.value
+            let password = userPassword.value
+            let fullname = fullnameIn.value
+
+            const {data, error} = await supabase.auth.signUp({
+                email : email,
+                password : password,
+                options : {
+                    data: {
+                        fullname : fullname
+                        }
+                    }
+                })
+            if(error){
+                console.error('Sign up Error:', error)
+            }else{
+                console.log('Successfull Sign Up:', data)
+            setTimeout(() => {
+            window.location.href = 'administrator.html'
+             }, 2000);
+            }
+
+        }
+
+        signUpBtn.addEventListener('click', signUp)
+
+
+        // SIGNIN USERS
+        const signIn = async () => {
+            let email = signEmail.value
+            let password = signPassword.value
+
+            const{data, error} = await supabase.auth.signInWithPassword({
+                email : email,
+                password : password
+             })
+                if(error){
+                    console.error(error)
+                }else{
+                    console.log('data');
+                    window.location.href = 'administrator.html'
+                }
+        }
+
+signInBtn.addEventListener('click', signIn)
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

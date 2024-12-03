@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Ewamii | Admin</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: aquamarine;
+        }
+        .webs{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .inputDivs{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        input{
+            width: 200px;
+            height: 30px;
+            border-radius: 30px;
+            padding: 6px;
+            border: 2px solid aquamarine;
+            outline: 2px solid white;
+        }
+        button{
+            width: 100px;
+            height: 30px;
+            border-radius: 30px;
+            background-color: green;
+            color: white;
+            cursor: pointer;
+        }
+        .actionButtons{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+        .welcomeMsg{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            background-color: black;
+            color: white;
+            margin-bottom: 20px;
+        }
+        #fullname{
+            color: goldenrod;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="welcomeMsg">
+        <h3>Welcome <span id="fullname"></span>!!!</h3>
+    </div>
+
+    <div id="webs">
+        <div class="inputDivs">
+            <input type="text" id="productName" placeholder="Enter Product Name">
+            <input type="text" id="productPrice" placeholder="Enter Product Price">
+            <label for="productImage"><i class="fa-regular fa-image" style="font-size: 40px; cursor: pointer;"></i></label>
+            <input type="file" id="productImage" style="display: none;">
+        </div>
+        <div class="actionButtons">
+            <button id="writeProduct">Write</button>
+            <button id="readProduct" style="background-color: blue; ">Read</button>
+            <button id="updateProduct" style="background-color: purple;" >Update</button>
+            <button id="deleteProduct" style="background-color: red;">Delete</button>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script type="module" src="administrator.js"></script>
+</body>
+</html>
