@@ -56,13 +56,13 @@ const readProductFunc = async () => {
               const newCustomerDetails = {phoneNumber, email, fullName}
               localStorage.setItem('customerDetails', JSON.stringify(newCustomerDetails))
               setTimeout(() => {
-                // sendToTelegram(customerDetails, productName, productPrice)
+                sendToTelegram(customerDetails, productName, productPrice)
               },2000)
             }else{
               alert('Both Phone Number and Email are required for delivery')
             }
           }else{
-            // sendToTelegram(customerDetails, productName, productPrice)
+            sendToTelegram(customerDetails, productName, productPrice)
           }
             })
             displayAll.appendChild(newDiv)
@@ -73,37 +73,37 @@ const readProductFunc = async () => {
 readProductFunc()
 
     // sending to telegram
-//     function sendToTelegram(customerDetails, productName, productPrice){
-//         const API_KEY = '8015987269:AAEo89RY2jpi-XS3L2J-4g6YP2uvNWodcy8'
-//         const chat_id = 7290720641
+    function sendToTelegram(customerDetails, productName, productPrice){
+        const API_KEY = '8074076986:AAG4c8g2emIGmHTfkKM9uNR7k7Rtpcla24k'
+        const chat_id = 5979443967
 
-//         const message = `
-//           New Order:
-//           Product: ${productName}
-//           Price: ${productPrice}
-//           Customer Name: ${customerDetails.fullName}
-//           Customer Phone: ${customerDetails.phoneNumber}
-//           Customer Email: ${customerDetails.email}
-//          `
-//       ;
+        const message = `
+          New Order:
+          Product: ${productName}
+          Price: ${productPrice}
+          Customer Name: ${customerDetails.fullName}
+          Customer Phone: ${customerDetails.phoneNumber}
+          Customer Email: ${customerDetails.email}
+         `
+      ;
 
-// fetch(`https://api.telegram.org/bot${API_KEY}/sendMessage`, {
-//     method: 'POST',
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify({
-//         chat_id: `${chat_id}`,
-//         text: message,
-//     }),
-// })
-// .then(response => response.json())
-// .then(data =>  {
-//   console.log('Message sent:', data)
-//   if(data.ok){
-//     alert(`Order of ${productName} placed`)
-//   }
-// })
-// .catch(error => console.error('Error sending message:', error));
-// }
+fetch(`https://api.telegram.org/bot${API_KEY}/sendMessage`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+        chat_id: `${chat_id}`,
+        text: message,
+    }),
+})
+.then(response => response.json())
+.then(data =>  {
+  console.log('Message sent:', data)
+  if(data.ok){
+    alert(`Order of ${productName} placed`)
+  }
+})
+.catch(error => console.error('Error sending message:', error));
+}
 
 
 
@@ -179,6 +179,30 @@ const displayHomeFew = async () => {
                     </div>
                 </div> 
             `;
+            newDiv.querySelector('.buyNow').addEventListener('click', () => {
+                const productName = element.productName
+                const productPrice = element.productPrice
+
+                 // check local storage for customer's info, if it exists, send, if it doesnt, collect their phone number and email.
+          const customerDetails = JSON.parse(localStorage.getItem('customerDetails'))
+          if(!customerDetails){
+            const fullName = prompt('Enter Full name')
+            const phoneNumber = prompt('Enter Phone Number')
+            const email = prompt('Enter Email')
+
+            if(phoneNumber && email && fullName){
+              const newCustomerDetails = {phoneNumber, email, fullName}
+              localStorage.setItem('customerDetails', JSON.stringify(newCustomerDetails))
+              setTimeout(() => {
+                sendToTelegram(customerDetails, productName, productPrice)
+              },2000)
+            }else{
+              alert('Both Phone Number and Email are required for delivery')
+            }
+          }else{
+            sendToTelegram(customerDetails, productName, productPrice)
+          }
+            })
             featuredProd.appendChild(newDiv)
         })
     }
